@@ -1,39 +1,73 @@
 module WebCms
   module Chart
     class Generator
-      attr_accessor :web_cms_chart_data
+      attr_accessor :chart_data
 
       OUTPUT_DIR = 'graphs'
 
       class << self
-        def generate(web_cms_chart_data)
-          new(web_cms_chart_data).generate
+        def generate(chart_data)
+          new(chart_data).generate
         end
-
       end
 
-      def initialize(web_cms_chart_data)
-        @web_cms_chart_data = web_cms_chart_data
+      def initialize(chart_data)
+        @chart_data = chart_data
         ensure_output_directory
       end
 
       def generate
-        output = File.join(OUTPUT_DIR, "#{basename}.png")
-        File.open(output, 'w') { |f| f.write 'xyz' }
+        g = Gruff::Bar.new
+        g.title = title
+        populate_graph(g)
+        g.labels = labels
+        g.write output
       end
 
       private
+      def populate_graph(graph)
+        data.each { |k, v| graph.data k, v }
+      end
+
+      def data
+        @chart_data.data
+      end
+
+      def title
+        @chart_data.title
+      end
+
+      # Transforms an Array of labels into
+      # an indexed Hash
+      #
+      # >> ['I', 'II', 'III', 'IV']
+      # #=> { 0 => 'I', 1 => 'II', 2 => 'III', 3 => 'IV' }
+      def labels
+        # Although there is this one liner,
+        # I feel more comfortable with more descriptive code :)
+        # @chart_data.labels.to_enum(:each_with_index).inject({}) {|h, (v,k)| h[k]=v;h}
+        hash = Hash.new
+        @chart_data.labels.each_with_index do |item, index|
+          hash[index] = item
+        end
+        hash
+      end
+
       def ensure_output_directory
         Dir.exist?(OUTPUT_DIR) || FileUtils.mkdir(OUTPUT_DIR)
+      end
+
+      def output
+        File.join(OUTPUT_DIR, "#{basename}.png")
       end
 
       # Sanitizes the data object's title
       # so it can be used as a basename for a file.
       #
       # >> '   Some   Title    '
-      # => 'some_title'
+      # #=> 'some_title'
       def basename
-        @web_cms_chart_data.title
+        @chart_data.title
           .strip
           .gsub(/\s+/, '_')
           .downcase

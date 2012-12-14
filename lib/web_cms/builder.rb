@@ -19,6 +19,8 @@ module WebCms
 
     def process
       data = Data.new(@filename)
+      # From here, list all the flavours
+      # you'd like:
       chart_data = Chart::Data.new(data)
       Chart::Generator.generate(chart_data)
     end
