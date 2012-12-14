@@ -14,13 +14,13 @@ describe 'WebCms' do
     FileUtils.rm_rf(File.join(output_dir, '.'))
   end
 
-  xit 'generates a file' do
+  it 'generates a file' do
     expect do
       WebCms('log/production.log')
     end.to change{Dir.entries(output_dir).size}.by(1)
   end
 
-  xit 'actually generates an image' do
+  it 'actually generates an image' do
     expect do
       WebCms('log/production.log')
     end.to change{Dir.glob(File.join(output_dir, '*.png')).size}.by(1)

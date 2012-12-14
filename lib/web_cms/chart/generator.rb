@@ -1,3 +1,5 @@
+require 'gruff'
+
 module WebCms
   module Chart
     class Generator

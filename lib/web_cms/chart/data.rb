@@ -41,7 +41,11 @@ module WebCms
       # >> rounded([123, 456])
       # # => 400
       def rounded(e)
-        e.last / 100 * 100
+        time_per_item(e) / 100 * 100
+      end
+
+      def time_per_item(e)
+        (e[2]/e[1]).to_i
       end
     end
   end
