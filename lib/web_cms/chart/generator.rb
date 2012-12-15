@@ -23,17 +23,20 @@ module WebCms
         g = Gruff::SideBar.new(1200)
         g.title = title
         populate_graph(g)
+        format_graph(g)
         g.labels = labels
-        g.title_font_size = 12.0
-        g.legend_font_size = 10.0
-        g.marker_font_size = 8.0
-        #g.bar_spacing = 0.5
         g.write output
       end
 
       private
       def populate_graph(graph)
         data.each { |k, v| graph.data k, v }
+      end
+
+      def format_graph(graph)
+        graph.title_font_size = 12.0
+        graph.legend_font_size = 10.0
+        graph.marker_font_size = 8.0
       end
 
       def data
