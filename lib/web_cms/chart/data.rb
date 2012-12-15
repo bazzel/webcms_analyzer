@@ -14,7 +14,7 @@ module WebCms
       # @return [Hash] The hash's value is an Array with grouped frequencies
       # #=> { 'webcms' => [1, 2, 1] }
       def data
-        { 'webcms' => categorized_array.map { |e| e.last } }
+        { 'webcms (ms./req.)' => categorized_array.map { |e| e.last } }
       end
 
       # @return [Array<String>] Elements will be used as labels

@@ -49,11 +49,11 @@ describe WebCms::Chart::Generator do
     let(:gruff_stub) { double.as_null_object }
 
     before(:each) do
-      Gruff::Bar.stub(:new).and_return(gruff_stub)
+      Gruff::SideBar.stub(:new).and_return(gruff_stub)
     end
 
     it 'create a Gruff Bar chart and saves it to disk' do
-      Gruff::Bar.should_receive(:new).and_return(gruff_stub)
+      Gruff::SideBar.should_receive(:new).and_return(gruff_stub)
       gruff_stub.should_receive(:write).with(File.join(output_dir, "#{title}.png"))
 
       subject.generate chart_data_stub

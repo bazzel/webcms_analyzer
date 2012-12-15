@@ -14,7 +14,7 @@ describe WebCms::Chart::Data do
 
   its(:title) { should == 'Request Time'}
   its(:data) do
-    should == { 'webcms' => [1, 2, 1] }
+    should == { 'webcms (ms./req.)' => [1, 2, 1] }
   end
 
   its(:labels) { should == ['0-99', '100-199', '200-299'] }

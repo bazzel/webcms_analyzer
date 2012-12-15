@@ -1,4 +1,5 @@
 require 'gruff'
+require 'fileutils'
 
 module WebCms
   module Chart
@@ -19,10 +20,12 @@ module WebCms
       end
 
       def generate
-        g = Gruff::Bar.new
+        g = Gruff::SideBar.new(1200)
         g.title = title
         populate_graph(g)
         g.labels = labels
+        g.marker_font_size = 8.0
+        #g.bar_spacing = 0.5
         g.write output
       end
 
