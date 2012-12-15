@@ -24,6 +24,8 @@ module WebCms
         g.title = title
         populate_graph(g)
         g.labels = labels
+        g.title_font_size = 12.0
+        g.legend_font_size = 10.0
         g.marker_font_size = 8.0
         #g.bar_spacing = 0.5
         g.write output

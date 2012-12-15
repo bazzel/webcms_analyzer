@@ -14,7 +14,7 @@ module WebCms
       # @return [Hash] The hash's value is an Array with grouped frequencies
       # #=> { 'webcms' => [1, 2, 1] }
       def data
-        { 'webcms (ms./req.)' => categorized_array.map { |e| e.last } }
+        { 'webcms (ms./req. +/- 50ms.)' => categorized_array.map { |e| e.last } }
       end
 
       # @return [Array<String>] Elements will be used as labels
@@ -23,11 +23,24 @@ module WebCms
       def labels
         categorized_array.map do |e|
           k = e.first
-          "#{k}-#{k+99}"
+          thousand_seperated(k+50)
         end
       end
 
       private
+      # >> thousand_seperated(1234567)
+      # => 1,234,567
+      #
+      # >> thousand_seperated(1234567, '.')
+      # => 1.234.567
+      def thousand_seperated(number, seperator = ',')
+        number.to_s
+          .reverse
+          .gsub(/.{3}/, '\0'+seperator)
+          .reverse
+          .gsub(/^#{seperator}/, '') # When first character is a seperator, remove it
+      end
+
       def categorized_array
         hash = Hash.new(0)
         @web_cms_data.each do |e|
