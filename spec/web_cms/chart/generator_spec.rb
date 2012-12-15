@@ -4,6 +4,7 @@ describe WebCms::Chart::Generator do
   subject { described_class }
   let(:output_dir) { 'graphs' }
   let(:title) { 'chart_title' }
+  let(:chart_type) { 'SideBar' }
   let(:data) do
     {
       'foo' => [1,2,3,4],
@@ -15,7 +16,8 @@ describe WebCms::Chart::Generator do
     double('chart_data', {
       :title  => title,
       :data   => data,
-      :labels => labels
+      :labels => labels,
+      :chart_type => chart_type
     })
   end
 
@@ -53,9 +55,12 @@ describe WebCms::Chart::Generator do
     end
 
     it 'create a Gruff Bar chart and saves it to disk' do
-      Gruff::SideBar.should_receive(:new).and_return(gruff_stub)
       gruff_stub.should_receive(:write).with(File.join(output_dir, "#{title}.png"))
+      subject.generate chart_data_stub
+    end
 
+    it 'uses chart_type to initialize a Gruff instance' do
+      Gruff::SideBar.should_receive(:new).and_return(gruff_stub)
       subject.generate chart_data_stub
     end
 

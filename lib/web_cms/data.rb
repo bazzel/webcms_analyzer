@@ -14,6 +14,9 @@ module WebCms
       File.open(filename).grep(/expected/)
     end
 
+    # Transform each row to an Array containing 3 floating point numbers
+    # >> numberify('[CatalogItem] Retrieved 10 products, expected 10 (500.3ms)')
+    # => [10.0, 10.0, 500.3]
     def numberify(row)
       scan = row.scan(/(\d+)\s|(\d+\.\d)/).flatten.compact.map(&:to_f)
       scan

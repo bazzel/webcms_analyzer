@@ -11,6 +11,10 @@ module WebCms
         'Request Time'
       end
 
+      def chart_type
+        'SideBar'
+      end
+
       # @return [Hash] The hash's value is an Array with grouped frequencies
       # #=> { 'webcms' => [1, 2, 1] }
       def data
