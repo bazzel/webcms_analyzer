@@ -23,6 +23,11 @@ module WebCms
         graph.title = title
         populate_graph
         format_graph
+        graph.minimum_value = 0
+        begin
+        graph.hide_dots = true
+        rescue
+        end
         graph.labels = labels
         graph.write output
       end
