@@ -9,7 +9,7 @@ specific lines that are located in the log file.
 
 ![number_of_retrieved_catalogitems](https://raw.github.com/bazzel/webcms_analyzer/master/graphs/number_of_retrieved_catalogitems.png)
 
-![total_request_time]https://raw.github.com/bazzel/webcms_analyzer/master/(graphs/total_request_time.png)
+![total_request_time](https://raw.github.com/bazzel/webcms_analyzer/master/graphs/total_request_time.png)
 
 ## Prerequisites
 
