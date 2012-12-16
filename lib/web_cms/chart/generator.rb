@@ -29,10 +29,15 @@ module WebCms
         rescue
         end
         graph.labels = labels
-        graph.write output
+        write output
       end
 
       private
+      def write(output)
+        puts "[%s] Saving %s" % [self.class, output.inspect]
+        graph.write output
+      end
+
       def graph
         @graph ||= Gruff.const_get(chart_type).new(1200)
       end

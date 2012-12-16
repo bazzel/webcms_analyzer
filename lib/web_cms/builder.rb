@@ -1,11 +1,13 @@
-require File.join(File.dirname(__FILE__), './data.rb')
+require File.join(File.dirname(__FILE__), 'data')
 Dir[File.join(File.dirname(__FILE__), 'chart', 'data', '*.rb')].each {|file| require file }
-require File.join(File.dirname(__FILE__), './chart/generator.rb')
+require File.join(File.dirname(__FILE__), 'chart', 'generator')
 
 module WebCms
   class Builder
     attr_accessor :filename
     attr_accessor :data
+
+    CHARTS = %w(RequestTime ExpectedVsRetrieved TotalRequestTime)
 
     class << self
       def process(filename)
@@ -19,9 +21,7 @@ module WebCms
     end
 
     def process
-      process_chart 'RequestTime'
-      process_chart 'ExpectedVsRetrieved'
-      process_chart 'TotalRequestTime'
+      CHARTS.each { |ct| process_chart ct }
     end
 
     def data
